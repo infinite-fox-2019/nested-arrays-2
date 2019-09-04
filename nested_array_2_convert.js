@@ -13,14 +13,40 @@ let roster = [
 
 function convert_roster_format (nestedArray) {
   // your convert code here
+  let container = []
+  for(let i = 1; i < nestedArray.length; i++){
+    let obj = {}
+    for(let j = 0; j < nestedArray[i].length; j++){
+      let key = toCamelCase(nestedArray[0][j]);
+      obj[key] = nestedArray[i][j]
+    }
+    container.push(obj)
+  }
+  return container
 }
+
+function toCamelCase(string){
+  var out = ''
+  for(let i = 0; i < string.length; i++){
+    if(i === 0){
+      out+= string[i].toLowerCase()
+    }else if(string[i] === ' '){
+      out+=string[i+1].toUpperCase()
+      i++
+    }else{
+      out+=string[i]
+    }
+  }
+  return out;
+}
+
 
 let object_roster = convert_roster_format(roster)
 console.log(object_roster[2])
 
-// => { "Number": 31, "Name": "Harvey Kay", "Position": "Shooting Guard", "Points per Game": [0, 30, 16, 0, 25] }
+// // => { "Number": 31, "Name": "Harvey Kay", "Position": "Shooting Guard", "Points per Game": [0, 30, 16, 0, 25] }
 
-console.log(object_roster[0]['Name'] == 'Joe Schmo') // outputs true
+console.log(object_roster[0]['name'] == 'Joe Schmo') // outputs true
 
 module.exports = {
   convert_roster_format
